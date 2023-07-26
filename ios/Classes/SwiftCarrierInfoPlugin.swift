@@ -1,7 +1,6 @@
 import Flutter
 import UIKit
 
-@available(iOS 12.0, *)
 public class SwiftCarrierInfoPlugin: NSObject, FlutterPlugin {
     fileprivate let carrier = Carrier()
     
@@ -16,8 +15,29 @@ public class SwiftCarrierInfoPlugin: NSObject, FlutterPlugin {
         DispatchQueue.main.async { [self] in
             switch call.method {
             
-            case "getIosInfo":
-                result(carrier.carrierInfo)
+            case "carrierName":
+                self.carrierName(result: result)
+
+            case "allowsVOIP":
+                self.allowsVOIP(result: result)
+                
+            case "isoCountryCode":
+                self.isoCountryCode(result: result)
+                
+            case "mobileCountryCode":
+                self.mobileCountryCode(result: result)
+                
+            case "mobileNetworkCode":
+                self.mobileNetworkCode(result: result)
+                
+            case "mobileNetworkOperator":
+                self.mobileNetworkOperator(result: result)
+            
+            case "radioType":
+                self.radioType(result: result)
+            
+            case "networkGeneration":
+                self.networkGeneration(result: result)
                 
             default:
                 result(FlutterMethodNotImplemented)
@@ -25,5 +45,35 @@ public class SwiftCarrierInfoPlugin: NSObject, FlutterPlugin {
             }
         }
     }
-
+    
+    public func carrierName(result: @escaping FlutterResult){
+        result(carrier.carrierName)
+    }
+    public func allowsVOIP(result: @escaping FlutterResult){
+        result(carrier.carrierAllowsVOIP)
+    }
+    
+    public func isoCountryCode(result: @escaping FlutterResult){
+        result(carrier.carrierIsoCountryCode)
+    }
+    
+    public func mobileCountryCode(result: @escaping FlutterResult){
+        result(carrier.carrierMobileCountryCode)
+    }
+    
+    public func mobileNetworkCode(result: @escaping FlutterResult){
+        result(carrier.carrierMobileNetworkCode)
+    }
+    
+    public func mobileNetworkOperator(result: @escaping FlutterResult){
+        result("")
+    }
+    
+    public func radioType(result: @escaping FlutterResult){
+        result(carrier.carrierRadioAccessTechnologyType)
+    }
+    
+    public func networkGeneration(result: @escaping FlutterResult){
+        result(carrier.carrierNetworkGeneration)
+    }
 }
